@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Studentlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Add note</h1>
+	<div>
+		<form th:object="${note}" th:action="@{save}" action="#" method="post">
+		  	<label for="fname">Title</label>
+			<input type="text" id="fname" th:field="*{title}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="lname">Content</label>
+			<input type="text" id="lname" th:field="*{content}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="deplist">Tag</label>
+			 <select id="deplist" th:field="*{tag}" class="form-control">
+       			<option th:each="tag: ${tags}" th:value="${tag.tagid}" th:text="${tag.name}"></option>
+    		</select>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>
