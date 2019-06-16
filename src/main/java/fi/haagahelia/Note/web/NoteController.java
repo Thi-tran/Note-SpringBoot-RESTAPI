@@ -1,12 +1,12 @@
 package fi.haagahelia.Note.web;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +26,35 @@ public class NoteController {
 	
 	@Autowired
 	private TagRepository tagRepository;
+	
+	///
+	// Template
+	///
+	
+	// List note
+	@RequestMapping(value="/", method = RequestMethod.GET) 
+	public String listNote(Model model) {
+		model.addAttribute("notes", repository.findAll());
+		return "notelist";
+	}
+	
+	
+	@RequestMapping(value="/notelist", method = RequestMethod.GET) 
+	public String listNote2(Model model) {
+		model.addAttribute("notes", repository.findAll());
+		return "notelist";
+	}
+
+	// Delete Note 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteNote(@PathVariable("id") Long noteId, Model model) {
+    	repository.deleteById(noteId);
+        return "redirect:../notelist";
+    }     
+    
+	///
+	// REST API 
+	///
 	
 	// Create Note
 	@RequestMapping(value="/addnote", method = RequestMethod.POST)
@@ -80,7 +109,7 @@ public class NoteController {
 		}
 	}
 	
-	// Delete Note
+	// Delete Note 
 	@RequestMapping(value="/delete/{noteId}", method= RequestMethod.DELETE) 
 	@ResponseBody
 	public ResponseEntity deleteNote(@PathVariable("noteId") Long noteId){
@@ -97,7 +126,7 @@ public class NoteController {
 			return ResponseEntity
 				.status(HttpStatus.NOT_ACCEPTABLE)
 				.body(e);
-			
+
 		}
 	}
 }
