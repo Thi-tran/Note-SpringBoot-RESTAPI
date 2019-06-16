@@ -6,14 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name ="note")
 public class Note {
 	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private String id;
 	private String title, content; 
 	
     @ManyToOne
@@ -29,11 +30,11 @@ public class Note {
 		this.tag = tag;
 	}
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

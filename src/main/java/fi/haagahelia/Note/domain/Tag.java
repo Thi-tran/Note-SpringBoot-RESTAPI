@@ -8,12 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="tag")
 public class Tag {
+	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long tagId;
+	private String id;
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tag")
@@ -26,12 +28,13 @@ public class Tag {
 		this.name = name;
 	}
 	
-	public Long getTagId() {
-		return tagId;
+
+	public String getId() {
+		return id;
 	}
 
-	public void setTagId(Long tagId) {
-		this.tagId = tagId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {

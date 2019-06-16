@@ -38,7 +38,6 @@ public class NoteController {
 		return "notelist";
 	}
 	
-	
 	@RequestMapping(value="/notelist", method = RequestMethod.GET) 
 	public String listNote2(Model model) {
 		model.addAttribute("notes", repository.findAll());
@@ -47,7 +46,7 @@ public class NoteController {
 
 	// Delete Note 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteNote(@PathVariable("id") Long noteId, Model model) {
+    public String deleteNote(@PathVariable("id") String noteId, Model model) {
     	repository.deleteById(noteId);
         return "redirect:../notelist";
     }     
@@ -80,7 +79,7 @@ public class NoteController {
 	// Edit Note
 	@RequestMapping(value="/edit/{noteId}", method= RequestMethod.PUT) 
 	@ResponseBody
-	public ResponseEntity updateNote(@PathVariable("noteId") Long noteId, @RequestBody Map<String,String> body){
+	public ResponseEntity updateNote(@PathVariable("noteId") String noteId, @RequestBody Map<String,String> body){
 		String title = body.get("title");
 		String content = body.get("content");
 		Note oldNote = repository.findById(noteId).get();
@@ -112,7 +111,7 @@ public class NoteController {
 	// Delete Note 
 	@RequestMapping(value="/delete/{noteId}", method= RequestMethod.DELETE) 
 	@ResponseBody
-	public ResponseEntity deleteNote(@PathVariable("noteId") Long noteId){
+	public ResponseEntity deleteNote(@PathVariable("noteId") String noteId){
 		try {
 			
 			repository.deleteById(noteId);

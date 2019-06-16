@@ -2,9 +2,11 @@ package fi.haagahelia.Note.domain;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TagRepository extends CrudRepository<Tag, Long>{
+@Repository
+public interface TagRepository extends MongoRepository<Tag, String>{
 	List<Tag> findByName(String name);
 	
 }

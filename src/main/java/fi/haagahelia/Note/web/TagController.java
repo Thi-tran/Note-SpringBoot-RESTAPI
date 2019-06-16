@@ -50,7 +50,7 @@ public class TagController {
 	// Edit tag
 	@RequestMapping(value="/editTag/{tagId}", method = RequestMethod.PUT) 
 	@ResponseBody
-	public ResponseEntity editTag(@PathVariable("tagId") Long tagId, @RequestBody Map<String, String> body) {
+	public ResponseEntity editTag(@PathVariable("tagId") String tagId, @RequestBody Map<String, String> body) {
 		String name = body.get("name");
 		try {
 			Tag oldTag = tagRepository.findById(tagId).get();
@@ -69,7 +69,7 @@ public class TagController {
 	// Delete Tag
 	@RequestMapping(value="/deleteTag/{tagId}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public  ResponseEntity deleteTag(@PathVariable("tagId") Long tagId) {
+	public  ResponseEntity deleteTag(@PathVariable("tagId") String tagId) {
 		try {
 			tagRepository.deleteById(tagId);
 			return ResponseEntity
@@ -85,7 +85,7 @@ public class TagController {
 	// Mapping/Edit Note to Tag 
 	@RequestMapping(value="/assignTagToNote/{noteId}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity assignTagToNote(@PathVariable("noteId") Long noteId, @RequestBody Map<String, String> body){
+	public ResponseEntity assignTagToNote(@PathVariable("noteId") String noteId, @RequestBody Map<String, String> body){
 		String tagName = body.get("tagName");
 		try {
 			Note note = repository.findById(noteId).get();
@@ -105,7 +105,7 @@ public class TagController {
 	// Detele Tag from Note 
 	@RequestMapping(value="/DeleteTagFromNote/{noteId}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity deleteTagFromNote(@PathVariable("noteId") Long noteId) {
+	public ResponseEntity deleteTagFromNote(@PathVariable("noteId") String noteId) {
 		try {
 			Note note = repository.findById(noteId).get();
 			note.deleteTag();
